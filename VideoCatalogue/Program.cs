@@ -2,11 +2,26 @@ using Asp.Versioning;
 using Microsoft.EntityFrameworkCore;
 using VideoCatalogue.EfCore;
 using VideoCatalogue.Interfaces;
+using VideoCatalogue.Repositories;
 using VideoCatalogue.Services;
+using VideoCatalogue.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
+builder.Services.AddDbContext<VideoDbContext>(options =>
+{
+    options.UseSqlite("Data Source=VideoCatalogue.db");
+});
+
+builder.Services.AddScoped<ChannelRepository>();
+builder.Services.AddScoped<VideoDataRepository>();
+builder.Services.AddScoped<IVideoDataService, VideoDataService>();
+builder.Services.AddScoped<IChannelDataService, ChannelDataService>();
+builder.Services.AddScoped<ModelConverter>();
+builder.Services.AddScoped<IYtdlService, YtdlService>();
 
 builder.Services.AddControllers();
 
@@ -31,12 +46,7 @@ builder.Services.AddApiVersioning(option =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IYtdlService, YtdlService>();
 
-builder.Services.AddDbContext<VideoDbContext>(options =>
-{
-    options.UseSqlite("Data Source=VideoCatalogue.db");
-});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -51,5 +61,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//Run Migrations
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var context = services.GetRequiredService<VideoDbContext>();
+context.Database.Migrate();
 
 app.Run();

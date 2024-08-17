@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using VideoCatalogue.Interfaces;
 using VideoCatalogue.Models;
 using VideoCatalogue.Services;
 
@@ -8,7 +9,7 @@ namespace VideoCatalogue.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [ApiVersion("1.0")]
-public class ChannelController(ChannelDataService channelDataService): ControllerBase
+public class ChannelController(IChannelDataService channelDataService): ControllerBase
 {
     [HttpGet("{id}")]
     public async Task<IActionResult> GetChannel(Guid id, CancellationToken cancellationToken)

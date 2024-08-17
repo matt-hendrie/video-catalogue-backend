@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using VideoCatalogue.Interfaces;
 using VideoCatalogue.Services;
 using YoutubeDLSharp.Metadata;
 
@@ -8,7 +9,7 @@ namespace VideoCatalogue.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [ApiVersion("1.0")]
-public class VideoController(VideoDataService videoDataService): ControllerBase
+public class VideoController(IVideoDataService videoDataService): ControllerBase
 {
     [HttpGet("{id}")]
     public async Task<IActionResult> GetVideo(Guid id, CancellationToken cancellationToken)

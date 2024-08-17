@@ -5,9 +5,9 @@ using VideoCatalogue.EfCore;
 
 namespace VideoCatalogue.Utils;
 
-public static class ModelConverter
+public class ModelConverter(VideoDbContext dbContext)
 {
-    public static async Task<Video> ConvertToVideo(VideoData videoData, VideoDbContext dbContext)
+    public async Task<Video> ConvertToVideo(VideoData videoData, VideoDbContext dbContext)
     {
         var existingChannel = await dbContext.Set<Channel>()
             .FirstOrDefaultAsync(c => c.Url == videoData.ChannelUrl);

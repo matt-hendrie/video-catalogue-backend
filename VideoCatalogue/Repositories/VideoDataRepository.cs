@@ -6,11 +6,11 @@ using YoutubeDLSharp.Metadata;
 
 namespace VideoCatalogue.Repositories;
 
-public class VideoDataRepository(VideoDbContext dbContext)
+public class VideoDataRepository(VideoDbContext dbContext, ModelConverter modelConverter)
 {
     public async Task AddVideoDataAsync(VideoData video)
     {
-        var videoModel = await ModelConverter.ConvertToVideo(video, dbContext);
+        var videoModel = await modelConverter.ConvertToVideo(video,  dbContext);
         await dbContext.Set<Video>().AddAsync(videoModel);
         await dbContext.SaveChangesAsync();
     }

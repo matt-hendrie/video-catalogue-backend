@@ -5,11 +5,14 @@ using YoutubeDLSharp.Metadata;
 
 namespace VideoCatalogue.Services;
 
-public class YtdlService(IConfiguration config): IYtdlService
+public class YtdlService(IConfiguration config, IVideoDataService videoDataService): IYtdlService
 {
     public async Task<RunResult<string>> BeginVideoDownloadAsync(string url, CancellationToken cancellationToken)
     {
         var downloader = await GetDownloader();
+        var data = await downloader.RunVideoDataFetch(url, ct: cancellationToken);
+        var videoData = data.Data;
+        await videoDataService.AddVideoAsync(videoData, cancellationToken);
         var res = await downloader.RunVideoDownload(url, ct: cancellationToken);
         return res;
     }

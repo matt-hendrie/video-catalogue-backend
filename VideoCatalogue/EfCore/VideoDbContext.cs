@@ -10,6 +10,9 @@ public class VideoDbContext : Microsoft.EntityFrameworkCore.DbContext
     public VideoDbContext(DbContextOptions options) : base(options)
     {
     }
+    public VideoDbContext()
+    {
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Video>().HasOne(v => v.Channel).WithMany(c => c.Videos);
