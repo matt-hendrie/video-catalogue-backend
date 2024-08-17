@@ -1,5 +1,7 @@
 using VideoCatalogue.Interfaces;
+using VideoCatalogue.Models;
 using YoutubeDLSharp;
+using YoutubeDLSharp.Metadata;
 
 namespace VideoCatalogue.Services;
 
@@ -11,7 +13,14 @@ public class YtdlService(IConfiguration config): IYtdlService
         var res = await downloader.RunVideoDownload(url, ct: cancellationToken);
         return res;
     }
-    
+
+    public async Task<VideoData> GetVideoDataAsync(string url, CancellationToken cancellationToken)
+    {
+        var downloader = await GetDownloader();
+        var res = await downloader.RunVideoDataFetch(url, ct: cancellationToken);
+        return res.Data;
+    }
+
     private async Task<YoutubeDL> GetDownloader()
     {
         var ytdl = new YoutubeDL();

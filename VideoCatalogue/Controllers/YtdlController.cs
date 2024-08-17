@@ -16,4 +16,11 @@ public class YtdlController(IYtdlService ytdlService): ControllerBase
         ytdlService.BeginVideoDownloadAsync(HttpUtility.UrlDecode(url), cancellationToken);
         return Ok();
     }
+    
+    [HttpGet("info/{url}")]
+    public async Task<IActionResult> GetVideoInfo(string url, CancellationToken cancellationToken)
+    {
+        var res = await ytdlService.GetVideoDataAsync(HttpUtility.UrlDecode(url), cancellationToken);
+        return Ok(res);
+    }
 }
