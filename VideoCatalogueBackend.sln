@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoCatalogue", "VideoCatalogue\VideoCatalogue.csproj", "{8676CF23-F65E-41B9-A2D1-9AB0ABF40E45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8676CF23-F65E-41B9-A2D1-9AB0ABF40E45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8676CF23-F65E-41B9-A2D1-9AB0ABF40E45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8676CF23-F65E-41B9-A2D1-9AB0ABF40E45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8676CF23-F65E-41B9-A2D1-9AB0ABF40E45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
