@@ -11,9 +11,9 @@ namespace VideoCatalogue.Controllers;
 public class YtdlController(IYtdlService ytdlService): ControllerBase
 {
     [HttpGet("{url}")]
-    public async Task<IActionResult> DownloadVideo(string url, CancellationToken cancellationToken)
+    public IActionResult DownloadVideo(string url, CancellationToken cancellationToken)
     {
-        var res = await ytdlService.BeginVideoDownloadAsync(HttpUtility.UrlDecode(url), cancellationToken);
-        return Ok(res);
+        ytdlService.BeginVideoDownloadAsync(HttpUtility.UrlDecode(url), cancellationToken);
+        return Ok();
     }
 }

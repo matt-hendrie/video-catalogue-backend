@@ -1,4 +1,6 @@
 using Asp.Versioning;
+using Microsoft.EntityFrameworkCore;
+using VideoCatalogue.EfCore;
 using VideoCatalogue.Interfaces;
 using VideoCatalogue.Services;
 
@@ -31,6 +33,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IYtdlService, YtdlService>();
 
+builder.Services.AddDbContext<VideoDbContext>(options =>
+{
+    options.UseSqlite("Data Source=VideoCatalogue.db");
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
